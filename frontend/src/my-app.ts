@@ -17,7 +17,8 @@ export class MyApp {
 
             this.loading = true;
             const response = await this.api.ask(this.question);
-            const markdown = md.render(response);
+            console.log(response);
+            const markdown = md.render(response.text);
             this.typeResponse(markdown, 0);
         } catch (error) {
             this.loading = false;

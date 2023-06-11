@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { RetrievalQAChain, VectorDBQAChain } from 'langchain/chains';
+import { RetrievalQAChain } from 'langchain/chains';
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
 import { SupabaseVectorStore } from 'langchain/vectorstores/supabase';
 
@@ -37,7 +37,7 @@ export class QuestionService {
         });
 
         if (res.text) {
-            return res.text;
+            return res;
         } else {
             return 'There was an error.';
         }

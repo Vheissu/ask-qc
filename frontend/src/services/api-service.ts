@@ -10,7 +10,7 @@ export class ApiService {
         this.httpClient.configure((config) => config.useStandardConfiguration().withBaseUrl(process.env.BACKEND_URL));
     }
 
-    public async ask(question: string): Promise<string> {
+    public async ask(question: string): Promise<{text: string;}> {
         const token  = localStorage.getItem('token');
 
         const response = await this.httpClient.fetch(`/questions`, {
@@ -21,7 +21,7 @@ export class ApiService {
             }
         });
 
-        const body = await response.text();
+        const body = await response.json();
 
         return body;
     }
