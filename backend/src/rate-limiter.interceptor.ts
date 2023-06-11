@@ -20,7 +20,7 @@ export class RateLimiterInterceptor implements NestInterceptor {
     async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
         const httpContext = context.switchToHttp();
         const request = httpContext.getRequest();
-        const ipAddress = request.ip;
+        const ipAddress = (request.headers['x-forwarded-for']?.split(',')[0] || request.ip).trim();
 
         const user = await this.userRepository.findOne({ where: { ipAddress } });
 
