@@ -1,4 +1,3 @@
-import { checkTokenExpiry } from './core/check-expiry';
 import { IApiService } from './services/api-service';
 import MarkdownIt from 'markdown-it';
 
@@ -6,38 +5,10 @@ export class MyApp {
     private question: string = '';
     private response: string = '';
     private loading: boolean = false;
-    private loggedIn: boolean = false;
     private errored: boolean = false;
     private error: string = '';
 
     constructor(@IApiService private readonly api: IApiService) {}
-
-    attached() {
-        // get the token from URL
-        const tokenFromURL = new URLSearchParams(window.location.search).get('accessToken');
-        let tokenFromStorage = localStorage.getItem('token');
-
-        // Check token expiry for the stored token
-        checkTokenExpiry();
-
-        // Re-fetch the token from local storage in case it was removed by checkTokenExpiry()
-        tokenFromStorage = localStorage.getItem('token');
-
-        if (tokenFromURL) {
-            const currentTime = new Date();
-            localStorage.setItem('token', tokenFromURL);
-            localStorage.setItem('loginTime', String(currentTime.getTime()));
-            // Remove the accessToken from the URL after storing it
-            window.history.replaceState({}, document.title, '/');
-        }
-
-        // Set loggedIn based on presence of a valid token
-        this.loggedIn = !!(tokenFromStorage || tokenFromURL);
-    }
-
-    private login() {
-        window.location.href = `${process.env.BACKEND_URL}/auth/github`;
-    }
 
     private async ask() {
         try {
