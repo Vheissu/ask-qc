@@ -1,7 +1,6 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import { GithubRepoLoader } from 'langchain/document_loaders/web/github';
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
 
 import { createClient } from '@supabase/supabase-js';
@@ -15,7 +14,7 @@ import { PDFLoader } from 'langchain/document_loaders/fs/pdf';
 const supabaseClient = createClient(process.env.SUPABASE_URL || '', process.env.SUPABASE_PRIVATE_KEY || '');
 
 export async function processPdf(
-    openaiApiKey: string = 'ffff',
+    openaiApiKey: string = null,
 ): Promise<void> {
     openaiApiKey = openaiApiKey || process.env.OPENAI_API_KEY;
 

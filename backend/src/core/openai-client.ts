@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import { OpenAI } from 'langchain/llms/openai';
 
 if (!process.env.OPENAI_API_KEY) {
