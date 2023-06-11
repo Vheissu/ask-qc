@@ -64,6 +64,9 @@ module.exports = function (env, { analyze }) {
             new Dotenv({
                 path: `./.env${production ? '' : '.' + (process.env.NODE_ENV || 'development')}`,
             }),
+            new DefinePlugin({
+                'process.env.BACKEND_URL': JSON.stringify(process.env.BACKEND_URL),
+            }),
             analyze && new BundleAnalyzerPlugin(),
         ].filter((p) => p),
     };
